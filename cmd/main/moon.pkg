@@ -1,0 +1,6 @@
+import {
+  "niuniu513-ask/moon-netcalculus" @nc,
+  "moonbitlang/core/env",
+}
+
+pkgtype(kind: "executable")
