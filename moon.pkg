@@ -1,0 +1,9 @@
+import {
+  "moonbitlang/core/json",
+  "moonbitlang/core/double",
+  "moonbitlang/core/debug",
+}
+
+import {
+  "niuniu513-ask/moon-netcalculus" @nc,
+} for "test"
