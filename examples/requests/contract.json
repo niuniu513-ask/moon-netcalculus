@@ -1,0 +1,26 @@
+{
+  "op": "trace",
+  "events": [
+    {
+      "at": 0,
+      "amount": 3
+    },
+    {
+      "at": 1,
+      "amount": 5
+    },
+    {
+      "at": 3,
+      "amount": 2
+    }
+  ],
+  "contract": {
+    "burst": 5,
+    "rate": 2
+  },
+  "windows": [
+    0,
+    1,
+    3
+  ]
+}

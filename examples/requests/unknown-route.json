@@ -1,0 +1,24 @@
+{
+  "op": "network",
+  "servers": [
+    {
+      "id": "s",
+      "service": {
+        "capacity": 5,
+        "latency": 0
+      }
+    }
+  ],
+  "flows": [
+    {
+      "id": "f",
+      "arrival": {
+        "burst": 1,
+        "rate": 1
+      },
+      "route": [
+        "missing"
+      ]
+    }
+  ]
+}

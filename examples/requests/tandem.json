@@ -1,0 +1,17 @@
+{
+  "op": "tandem",
+  "arrival": {
+    "burst": 12,
+    "rate": 2
+  },
+  "services": [
+    {
+      "capacity": 8,
+      "latency": 1
+    },
+    {
+      "capacity": 4,
+      "latency": 2
+    }
+  ]
+}

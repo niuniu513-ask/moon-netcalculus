@@ -1,0 +1,15 @@
+{
+  "op": "leftover",
+  "service": {
+    "capacity": 10,
+    "latency": 2
+  },
+  "cross": {
+    "burst": 6,
+    "rate": 2
+  },
+  "arrival": {
+    "burst": 4,
+    "rate": 1
+  }
+}

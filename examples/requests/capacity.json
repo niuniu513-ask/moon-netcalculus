@@ -1,0 +1,10 @@
+{
+  "op": "capacity",
+  "arrival": {
+    "burst": 120,
+    "rate": 2
+  },
+  "latency": 3,
+  "delay_limit": 13,
+  "buffer_limit": 126
+}

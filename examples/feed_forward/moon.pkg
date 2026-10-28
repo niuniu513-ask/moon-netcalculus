@@ -1,0 +1,5 @@
+import {
+  "niuniu513-ask/moon-netcalculus" @nc,
+}
+
+pkgtype(kind: "executable")

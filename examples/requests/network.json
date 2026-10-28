@@ -1,0 +1,42 @@
+{
+  "op": "network",
+  "servers": [
+    {
+      "id": "edge",
+      "service": {
+        "capacity": 10,
+        "latency": 1
+      }
+    },
+    {
+      "id": "core",
+      "service": {
+        "capacity": 8,
+        "latency": 2
+      }
+    }
+  ],
+  "flows": [
+    {
+      "id": "f",
+      "arrival": {
+        "burst": 4,
+        "rate": 1
+      },
+      "route": [
+        "edge",
+        "core"
+      ]
+    },
+    {
+      "id": "x",
+      "arrival": {
+        "burst": 6,
+        "rate": 2
+      },
+      "route": [
+        "edge"
+      ]
+    }
+  ]
+}

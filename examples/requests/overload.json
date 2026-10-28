@@ -1,0 +1,11 @@
+{
+  "op": "bound",
+  "arrival": {
+    "burst": 10,
+    "rate": 6
+  },
+  "service": {
+    "capacity": 5,
+    "latency": 3
+  }
+}
