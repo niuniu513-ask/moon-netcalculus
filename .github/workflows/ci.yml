@@ -1,0 +1,42 @@
+name: MoonBit verification
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install current stable MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+      - name: Toolchain and dependencies
+        run: |
+          moon version --all
+          moon update
+      - name: Format and public interfaces
+        run: |
+          moon fmt --check
+          moon info
+          git diff --exit-code
+      - name: Check, build, test
+        run: |
+          moon check --deny-warn --target all
+          moon build --target all
+          moon test --deny-warn --target all
+      - name: Examples, independent oracles and public consumer
+        run: |
+          moon run examples/capacity --target wasm-gc --deny-warn
+          moon run examples/trace_contract --target wasm-gc --deny-warn
+          moon run examples/feed_forward --target wasm-gc --deny-warn
+          python scripts/verify.py
+          python scripts/verify_consumer.py
