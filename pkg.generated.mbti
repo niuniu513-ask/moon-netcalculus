@@ -1,0 +1,238 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "niuniu513-ask/moon-netcalculus"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn admit(TokenBucket, RateLatency, Double, Double) -> Admission raise CalculusError
+
+pub fn aggregate(Array[TokenBucket]) -> TokenBucket raise CalculusError
+
+pub fn analyze_network(Array[Server], Array[Flow]) -> NetworkReport raise CalculusError
+
+pub fn bounds(TokenBucket, RateLatency) -> AnalyticBounds raise CalculusError
+
+pub fn check_contract(Array[TrafficEvent], TokenBucket, tolerance? : Double) -> ContractReport raise CalculusError
+
+pub fn convolve(Curve, Curve) -> Curve raise CalculusError
+
+pub fn curve(Array[Double]) -> Curve raise CalculusError
+
+pub fn curve_max(Curve, Curve) -> Curve raise CalculusError
+
+pub fn curve_min(Curve, Curve) -> Curve raise CalculusError
+
+pub fn curve_sum(Curve, Curve) -> Curve raise CalculusError
+
+pub fn empirical_envelope(Array[TrafficEvent], Array[Double]) -> Array[EnvelopeSample] raise CalculusError
+
+pub fn fit_burst(Array[TrafficEvent], Double) -> BurstFit raise CalculusError
+
+pub fn leftover(RateLatency, TokenBucket) -> RateLatency raise CalculusError
+
+pub fn process_json(String) -> String
+
+pub fn rate_latency(Double, Double) -> RateLatency raise CalculusError
+
+pub fn required_capacity(TokenBucket, Double, Double, Double) -> CapacityPlan raise CalculusError
+
+pub fn sample_arrival(TokenBucket, Int32, Double) -> Curve raise CalculusError
+
+pub fn sample_service(RateLatency, Int32, Double) -> Curve raise CalculusError
+
+pub fn subadditive_closure(Curve) -> Curve raise CalculusError
+
+pub fn tandem(Array[RateLatency]) -> RateLatency raise CalculusError
+
+pub fn token_bucket(Double, Double) -> TokenBucket raise CalculusError
+
+pub fn window_bounds(Curve, Curve) -> WindowBounds raise CalculusError
+
+pub fn window_deconvolve(Curve, Curve) -> WindowDeconvolution raise CalculusError
+
+// Errors
+pub suberror CalculusError {
+  Invalid(String)
+  Unbounded(String)
+  Infeasible(String)
+  Limit(String)
+  Numerical(String)
+} derive(@debug.Debug)
+pub fn CalculusError::to_repr(Self) -> @debug.Repr
+
+// Types and methods
+pub(all) struct Admission {
+  admitted : Bool
+  delay_ok : Bool
+  buffer_ok : Bool
+  metrics : AnalyticBounds
+} derive(ToJson, @debug.Debug)
+pub fn Admission::to_json(Self) -> Json
+pub fn Admission::to_repr(Self) -> @debug.Repr
+
+pub(all) struct AnalyticBounds {
+  backlog : Double
+  delay : Double
+  output : TokenBucket
+  utilization : Double
+} derive(ToJson, @debug.Debug)
+pub fn AnalyticBounds::to_json(Self) -> Json
+pub fn AnalyticBounds::to_repr(Self) -> @debug.Repr
+
+pub(all) struct BurstFit {
+  envelope : TokenBucket
+  witness : ContractWitness?
+  scope : String
+} derive(ToJson, @debug.Debug)
+pub fn BurstFit::to_json(Self) -> Json
+pub fn BurstFit::to_repr(Self) -> @debug.Repr
+
+pub(all) struct CapacityPlan {
+  minimum_capacity : Double
+  necessary_buffer : Double
+  delay_limit : Double
+  latency : Double
+} derive(ToJson, @debug.Debug)
+pub fn CapacityPlan::to_json(Self) -> Json
+pub fn CapacityPlan::to_repr(Self) -> @debug.Repr
+
+pub(all) struct ContractReport {
+  conforms : Bool
+  violating_intervals : Int32
+  worst : ContractWitness?
+  checked_intervals : Int32
+  events : Int32
+  tolerance : Double
+  scope : String
+} derive(ToJson, @debug.Debug)
+pub fn ContractReport::to_json(Self) -> Json
+pub fn ContractReport::to_repr(Self) -> @debug.Repr
+
+pub(all) struct ContractWitness {
+  first : Int32
+  last : Int32
+  start : Double
+  end : Double
+  amount : Double
+  allowance : Double
+  excess : Double
+} derive(ToJson, @debug.Debug)
+pub fn ContractWitness::to_json(Self) -> Json
+pub fn ContractWitness::to_repr(Self) -> @debug.Repr
+
+pub struct Curve {
+  values : Array[Double]
+} derive(@debug.Debug)
+pub fn Curve::horizon(Self) -> Int32
+pub fn Curve::sample(Self, Int32) -> Double raise CalculusError
+pub fn Curve::samples(Self) -> Array[Double]
+pub fn Curve::to_repr(Self) -> @debug.Repr
+
+pub(all) struct EnvelopeSample {
+  window : Double
+  amount : Double
+  first : Int32?
+  last : Int32?
+} derive(ToJson, @debug.Debug)
+pub fn EnvelopeSample::to_json(Self) -> Json
+pub fn EnvelopeSample::to_repr(Self) -> @debug.Repr
+
+pub(all) struct Flow {
+  id : String
+  arrival : TokenBucket
+  route : Array[String]
+} derive(ToJson, @debug.Debug)
+pub fn Flow::to_json(Self) -> Json
+pub fn Flow::to_repr(Self) -> @debug.Repr
+
+pub(all) struct FlowBound {
+  id : String
+  hops : Array[HopBound]
+  end_to_end : AnalyticBounds
+  sum_hop_delay : Double
+  maximum_hop_backlog : Double
+  exit_envelope : TokenBucket
+} derive(ToJson, @debug.Debug)
+pub fn FlowBound::to_json(Self) -> Json
+pub fn FlowBound::to_repr(Self) -> @debug.Repr
+
+pub(all) struct HopBound {
+  server : String
+  input : TokenBucket
+  cross : TokenBucket
+  service : RateLatency
+  metrics : AnalyticBounds
+} derive(ToJson, @debug.Debug)
+pub fn HopBound::to_json(Self) -> Json
+pub fn HopBound::to_repr(Self) -> @debug.Repr
+
+pub(all) struct NetworkReport {
+  server_order : Array[String]
+  flows : Array[FlowBound]
+  analysis_method : String
+  assumptions : Array[String]
+} derive(ToJson, @debug.Debug)
+pub fn NetworkReport::to_json(Self) -> Json
+pub fn NetworkReport::to_repr(Self) -> @debug.Repr
+
+pub(all) struct RateLatency {
+  capacity : Double
+  latency : Double
+} derive(Eq, ToJson, @debug.Debug)
+pub fn RateLatency::at(Self, Double) -> Double raise CalculusError
+pub fn RateLatency::equal(Self, Self) -> Bool
+pub fn RateLatency::not_equal(Self, Self) -> Bool
+pub fn RateLatency::to_json(Self) -> Json
+pub fn RateLatency::to_repr(Self) -> @debug.Repr
+
+pub(all) struct Server {
+  id : String
+  service : RateLatency
+} derive(ToJson, @debug.Debug)
+pub fn Server::to_json(Self) -> Json
+pub fn Server::to_repr(Self) -> @debug.Repr
+
+pub(all) struct TokenBucket {
+  burst : Double
+  rate : Double
+} derive(Eq, ToJson, @debug.Debug)
+pub fn TokenBucket::at(Self, Double) -> Double raise CalculusError
+pub fn TokenBucket::equal(Self, Self) -> Bool
+pub fn TokenBucket::not_equal(Self, Self) -> Bool
+pub fn TokenBucket::to_json(Self) -> Json
+pub fn TokenBucket::to_repr(Self) -> @debug.Repr
+
+pub(all) struct TrafficEvent {
+  at : Double
+  amount : Double
+} derive(ToJson, @debug.Debug)
+pub fn TrafficEvent::to_json(Self) -> Json
+pub fn TrafficEvent::to_repr(Self) -> @debug.Repr
+
+pub(all) struct WindowBounds {
+  backlog : Double
+  backlog_tick : Int32
+  resolved_delay_max_ticks : Int32
+  delay_upper_ticks : Int32?
+  censored_samples : Int32
+  horizon : Int32
+  scope : String
+} derive(@debug.Debug)
+pub fn WindowBounds::to_json(Self) -> Json
+pub fn WindowBounds::to_repr(Self) -> @debug.Repr
+pub impl ToJson for WindowBounds
+
+pub(all) struct WindowDeconvolution {
+  values : Array[Double]
+  maximizing_shift : Array[Int32]
+  horizon : Int32
+  scope : String
+} derive(ToJson, @debug.Debug)
+pub fn WindowDeconvolution::to_json(Self) -> Json
+pub fn WindowDeconvolution::to_repr(Self) -> @debug.Repr
+
+// Type aliases
+
+// Traits
