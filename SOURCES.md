@@ -30,7 +30,7 @@
 ## 数学来源和其他语言同类
 
 - Jean-Yves Le Boudec / Patrick Thiran, [Network Calculus](https://leboudec.github.io/netcal/)，LNCS 2050。参考其公开到达/服务曲线、串联、剩余服务与偏差定义；没有复制书籍正文、插图或源文件，免费可读不等于其内容可任意再分发。
-- [NetCal/DNC](https://github.com/NetCal/DNC) 是成熟的 Java 确定性网络演算工具，功能大于本项目。它证明该领域是既有方法，本项目不是全球首次提出，也不是它的完整 MoonBit 移植。仅查阅项目定位和能力介绍，没有复制、翻译或链接其源代码；其许可证不作为本项目的许可证。
+- [NetCal/DNC](https://github.com/NetCal/DNC) 是成熟的 Java 确定性网络演算工具，功能大于本项目。它证明该领域是既有方法，本项目不是全球首次提出，也不是它的完整 MoonBit 移植。仅查阅项目定位和能力介绍，没有复制、翻译或链接其源代码，因此本仓库不包含、也不衍生自其源码；NetCal/DNC 采用 LGPL-2.1，该许可证不适用于本项目的任何文件，本项目仍按根目录 MIT 发布。
 - [MoonBit core](https://github.com/moonbitlang/core)，Apache-2.0，通过官方工具链链接使用；不内嵌 core 源码。CLI 的按后端处理进程参数使用 core/env 的公开语义；不把它作为新的算法贡献。
 
 ## 原创与合规范围

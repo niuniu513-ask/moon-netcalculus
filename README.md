@@ -45,10 +45,10 @@ moon run examples/feed_forward --target wasm-gc
 
 容量示例第一行输出 `backlog=126`、`delay=18`；反解得到最小容量 `12`，将延迟上界降至 `13`。流量示例先报告违例，拟合突发量 `6` 后通过**观测记录**的复查。
 
-已发布到 Mooncakes：`niuniu513-ask/moon-netcalculus@0.1.0`，包页面 <https://mooncakes.io/docs/niuniu513-ask/moon-netcalculus>。
+已发布到 Mooncakes：`niuniu513-ask/moon-netcalculus@0.1.1`，包页面 <https://mooncakes.io/docs/niuniu513-ask/moon-netcalculus>。
 
 ```sh
-moon add niuniu513-ask/moon-netcalculus@0.1.0
+moon add niuniu513-ask/moon-netcalculus@0.1.1
 ```
 
 在另一个包的 `moon.pkg` 中导入：
@@ -72,15 +72,24 @@ fn main raise {
 
 ## JSON 命令行
 
-PowerShell、bash 均可用单引号把一条 JSON 请求作为一个参数传入：
+bash（含 Windows 上的 Git Bash）可以直接用单引号把整条 JSON 作为一个参数传入：
 
 ```sh
-moon run cmd/main --target js -- '{"op":"bound","arrival":{"burst":10,"rate":2},"service":{"capacity":5,"latency":3}}'
+moon run cmd/main --target native -- '{"op":"bound","arrival":{"burst":10,"rate":2},"service":{"capacity":5,"latency":3}}'
 ```
 
 ```json
 {"ok":true,"result":{"backlog":16,"delay":5,"output":{"burst":16,"rate":2},"utilization":0.4}}
 ```
+
+Windows PowerShell 5.1 会剥掉单引号字符串里的内层双引号，同一条命令只会得到 `malformed or too deeply nested JSON`（本机未装 PowerShell 7，未验证其行为）。在 PowerShell 5.1 里请改用 `cmd /c` 并转义内层双引号：
+
+```powershell
+$req = '{"op":"bound","arrival":{"burst":10,"rate":2},"service":{"capacity":5,"latency":3}}'
+cmd /c ('moon run cmd/main --target native -- "' + $req.Replace('"','\"') + '"')
+```
+
+CLI 只接受一个 JSON 参数，不读标准输入。
 
 `--target` 可选 `wasm`、`wasm-gc`、`js`、`native`。CLI 输出单行 JSON；业务失败通过 `ok:false` 和 `code` 表达，进程退出码不代表业务成功。可运行的请求文件在 `examples/requests/`，完整协议见 [docs/protocol.md](docs/protocol.md)。
 
