@@ -29,7 +29,7 @@ MoonBit 确定性网络演算库。把**突发量与长期速率、节点服务�
 
 ## 环境与运行
 
-需要 MoonBit CLI。开发时验证过 `moonc v0.10.14+7d59c7ec9`、`v0.10.16+b1a0e846e`，最终使用官方 stable `v0.10.17+d971670cd`（`moon 0.1.20261023`）。JS 后端需要 Node.js，native 后端需要系统 C 编译器。Python 3.9+ 仅用于独立验证，不参与库或 CLI 的计算。
+需要 MoonBit CLI，当前源码要求 `moonc >= 0.10.16`：已在本机用 `moonc v0.10.16+b1a0e846e`（`moon 0.1.20261016`）与官方 stable `v0.10.17+d971670cd`（`moon 0.1.20261023`）跑通下面全部命令，两版都是 `check`/`build`/`test` 46/46 × 四后端；`v0.10.14+7d59c7ec9` 会因源码使用 `Int32` 而编译失败（该类型在更早的编译器里不存在）。JS 后端需要 Node.js，native 后端需要系统 C 编译器。Python 3.9+ 仅用于独立验证，不参与库或 CLI 的计算。
 
 在项目根目录执行：
 
@@ -45,10 +45,10 @@ moon run examples/feed_forward --target wasm-gc
 
 容量示例第一行输出 `backlog=126`、`delay=18`；反解得到最小容量 `12`，将延迟上界降至 `13`。流量示例先报告违例，拟合突发量 `6` 后通过**观测记录**的复查。
 
-已发布到 Mooncakes：`niuniu513-ask/moon-netcalculus@0.1.1`，包页面 <https://mooncakes.io/docs/niuniu513-ask/moon-netcalculus>。
+已发布到 Mooncakes：`niuniu513-ask/moon-netcalculus@0.1.2`，包页面 <https://mooncakes.io/docs/niuniu513-ask/moon-netcalculus>。
 
 ```sh
-moon add niuniu513-ask/moon-netcalculus@0.1.1
+moon add niuniu513-ask/moon-netcalculus@0.1.2
 ```
 
 在另一个包的 `moon.pkg` 中导入：
