@@ -1,5 +1,8 @@
 # moon-netcalculus
 
+[![CI](https://github.com/niuniu513-ask/moon-netcalculus/actions/workflows/ci.yml/badge.svg)](https://github.com/niuniu513-ask/moon-netcalculus/actions/workflows/ci.yml)
+[![mooncakes.io](https://img.shields.io/badge/mooncakes.io-niuniu513--ask%2Fmoon--netcalculus-blue)](https://mooncakes.io/docs/niuniu513-ask/moon-netcalculus)
+
 MoonBit 确定性网络演算库。把**突发量与长期速率、节点服务能力、共享路径**转成可复查的缓存和延迟上界；从观测记录定位契约违例，再反解满足预算的服务容量。
 
 核心代码由 MoonBit 实现，只依赖 `moonbitlang/core`。这是基于公开数学定义的独立实现，不宣称发明网络演算，也不宣称全网没有同类工具。与 MoonBit 相邻项目的关系和有限查重结论见 [SOURCES.md](SOURCES.md)。
@@ -42,7 +45,13 @@ moon run examples/feed_forward --target wasm-gc
 
 容量示例第一行输出 `backlog=126`、`delay=18`；反解得到最小容量 `12`，将延迟上界降至 `13`。流量示例先报告违例，拟合突发量 `6` 后通过**观测记录**的复查。
 
-依赖本地源码：将本目录作为工作区模块，在另一个包的 `moon.pkg` 中导入：
+已发布到 Mooncakes：`niuniu513-ask/moon-netcalculus@0.1.0`，包页面 <https://mooncakes.io/docs/niuniu513-ask/moon-netcalculus>。
+
+```sh
+moon add niuniu513-ask/moon-netcalculus@0.1.0
+```
+
+在另一个包的 `moon.pkg` 中导入：
 
 ```moonbit
 import {
@@ -59,7 +68,7 @@ fn main raise {
 }
 ```
 
-模块当前仅本地开发，尚未发布 Mooncakes。不要用尚不存在的 `moon add` 版本安装；独立消费者复现使用下面的本地复制验证命令。生成的 [pkg.generated.mbti](pkg.generated.mbti) 列出完整公开接口。
+也可以把本目录作为工作区模块直接引用，跳过下载。生成的 [pkg.generated.mbti](pkg.generated.mbti) 列出完整公开接口；`scripts/verify_consumer.py` 在全新源码副本中只通过公共接口运行，不访问远程注册表。
 
 ## JSON 命令行
 
@@ -84,7 +93,7 @@ python scripts/verify.py
 python scripts/verify_consumer.py
 ```
 
-第一份脚本对四个后端分别进行逐步流体服务器计算、曲线分解穷举、事件区间穷举和协议/拓扑错误检查。第二份脚本把必要源码复制到 `_build/consumer/`，生成一个独立包，通过公共接口运行；不访问远程或发布任何内容。CI 配置执行检查、构建、测试、示例和上述复现；配置存在不表示线上运行成功。
+第一份脚本对四个后端分别进行逐步流体服务器计算、曲线分解穷举、事件区间穷举和协议/拓扑错误检查。第二份脚本把必要源码复制到 `_build/consumer/`，生成一个独立包，通过公共接口运行；不访问远程或发布任何内容。CI 在 GitHub Actions 上执行同样的格式与接口检查、四后端检查/构建/测试、三个示例和上述两份脚本；最近一次 `main` 推送的运行结果见 [Actions 记录](https://github.com/niuniu513-ask/moon-netcalculus/actions)。
 
 ## 数学与工程边界
 
